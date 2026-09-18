@@ -1,0 +1,98 @@
+/* Base + keyframes + responsive rules (from the design) */
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #f2f6f9; }
+  body { text-rendering: optimizeLegibility; -webkit-font-smoothing: subpixel-antialiased; }
+  a { color: #0a6fa8; text-decoration: none; border-bottom: 1px solid rgba(10,111,168,0.35); }
+  a:hover { color: #0f2f4c; border-bottom-color: #0f2f4c; }
+  ::selection { background: #2ba3e0; color: #0f2f4c; }
+  input, button { font: inherit; }
+  @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes introOut { to { opacity: 0; visibility: hidden; } }
+  @keyframes introRing { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  @keyframes introLine { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes introDrop { 0% { transform: translateY(-260px) scale(1); opacity: 0; } 15% { opacity: 1; } 55% { transform: translateY(0) scale(1.1, 0.85); } 75% { transform: translateY(-40px) scale(0.95, 1.05); } 100% { transform: translateY(0) scale(1); } }
+  @keyframes introRoll { 0% { transform: translateX(0); } 100% { transform: translateX(150px); } }
+  @keyframes drawX { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @keyframes popIn { from { opacity: 0; transform: scale(0.88) rotate(-3deg); } to { opacity: 1; transform: none; } }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  @keyframes spinSlow { to { transform: rotate(360deg); } }
+  @keyframes kenBurns { from { transform: scale(1.08) translate3d(0, 0, 0); } to { transform: scale(1.08) translate3d(-1.6%, 1.2%, 0); } }
+  @keyframes kenBurnsB { from { transform: scale(1.08) translate3d(1.4%, 1%, 0); } to { transform: scale(1.08) translate3d(-0.6%, -1%, 0); } }
+  @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.18); opacity: 1; } }
+  @keyframes bounceBall { 0%, 100% { transform: translateY(0) scale(1); } 45% { transform: translateY(-110px) scale(0.92); } 50% { transform: translateY(-116px) scale(0.9); } 95% { transform: translateY(0) scale(1.08, 0.9); } }
+  @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; } }
+  @container (max-width: 820px) {
+    #cpa-hero { grid-template-columns: minmax(0, 1fr) !important; min-height: 600px !important; }
+    #cpa-hero-art { position: absolute !important; inset: 0 !important; min-height: 0 !important; z-index: 1; }
+    #cpa-hero-art > div:nth-of-type(1) { background: linear-gradient(180deg, rgba(11,37,64,0.55) 0%, rgba(11,37,64,0.35) 40%, rgba(11,37,64,0.92) 100%) !important; }
+    #cpa-hero-art > div:nth-of-type(2) { display: none; }
+    #cpa-hero-art > div:nth-of-type(3) { left: auto !important; right: 20px !important; top: 20px !important; bottom: auto !important; width: 92px !important; height: 92px !important; }
+    #cpa-hero-art > div:nth-of-type(3) > div:first-child { inset: -9px !important; }
+    #cpa-hero-art > div:nth-of-type(4) { display: none; }
+    #cpa-hero-art > span { top: auto !important; bottom: 18px !important; right: auto !important; left: 32px !important; }
+    #cpa-hero-art > div:last-of-type { right: 24px !important; bottom: 22px !important; }
+    #cpa-hero-copy { padding: 140px 32px 64px !important; justify-content: flex-end !important; min-height: 600px; }
+    #cpa-hero h1 { font-size: clamp(38px, 9cqi, 68px) !important; max-width: 12ch !important; }
+    #cpa-hero p { font-size: 18px !important; max-width: 38ch !important; }
+  }
+  @container (max-width: 520px) {
+    #cpa-hero-copy { padding: 120px 22px 48px !important; }
+    #cpa-hero h1 { font-size: clamp(34px, 11cqi, 48px) !important; }
+  }
+  @media (max-width: 1060px) {
+    #cpa-search { width: 42px !important; flex: 0 0 42px !important; padding: 11px !important; justify-content: center; cursor: pointer !important; }
+    #cpa-search input { display: none !important; }
+    #cpa-search[data-open="1"] { width: 200px !important; flex: 0 0 200px !important; padding: 9px 16px !important; }
+    #cpa-search[data-open="1"] input { display: block !important; }
+  }
+  @media (max-width: 760px) {
+    #cpa-bar { flex-wrap: wrap; gap: 12px 16px !important; }
+    #cpa-nav { order: 3; flex: 1 1 100%; margin-left: 0 !important; flex-wrap: nowrap !important; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+    #cpa-search { margin-left: auto; }
+    #cpa-menu { grid-template-columns: minmax(0, 1fr) !important; gap: 16px !important; }
+    #cpa-menu > div:first-child p { display: none; }
+  }
+  @media (max-width: 880px) {
+    #cpa-footer-top { grid-template-columns: minmax(0, 1fr) !important; }
+    #cpa-main { padding-top: 24px !important; }
+  }
+  @media (max-width: 600px) {
+    #cpa-shell { padding: 0 16px !important; }
+    #cpa-bar { padding: 8px 16px !important; }
+    #cpa-bar img { height: 52px !important; }
+    #cpa-main { padding-bottom: 56px !important; }
+    #cpa-main h1 { font-size: clamp(30px, 9vw, 40px) !important; }
+    #cpa-main p, #cpa-main li { font-size: 17px !important; }
+    #cpa-main article > div[style*="padding: 32px"], #cpa-main article > div[style*="padding: 36px"] { padding: 24px !important; }
+    #cpa-hero-copy { padding: 110px 20px 40px !important; }
+    #cpa-hero .cta-row { flex-direction: column; }
+    #cpa-footer-bottom { flex-direction: column !important; align-items: flex-start !important; }
+    #cpa-footer-bottom > div:last-child { align-items: flex-start !important; text-align: left !important; }
+    #cpa-footer-bottom > div:last-child > div { justify-content: flex-start !important; }
+    footer img[alt="Pickleball Québec"], footer img[alt="Pickleball Canada"] { height: 36px !important; }
+  }
+
+
+/* Hover states */
+.h0:hover { background: #e3edf5 !important; color: #0f2f4c !important; }
+.h1:hover { color: #0a6fa8 !important; padding-left: 12px !important; }
+.h2:hover { color: #0a6fa8 !important; }
+.h3:hover { background: #ffffff !important; border-color: #ffffff !important; transform: translateY(-2px) !important; }
+.h4:hover { border-color: #f2f6f9 !important; background: rgba(242,246,249,0.08) !important; transform: translateY(-2px) !important; }
+.h5:hover { background: #eaf4fb !important; }
+.h6:hover { transform: translateY(-4px) !important; border-color: #0f86c6 !important; box-shadow: 0 18px 40px rgba(15,47,76,0.10) !important; }
+.h7:hover { background: #0f2f4c !important; color: #f2f6f9 !important; }
+.h8:hover { transform: scale(1.04) !important; }
+.h9:hover { transform: translateY(-3px) !important; box-shadow: 0 16px 30px rgba(15,47,76,0.1) !important; }
+.h10:hover { transform: translateY(-4px) !important; box-shadow: 0 18px 40px rgba(15,47,76,0.10) !important; }
+.h11:hover { background: #0f86c6 !important; }
+.h12:hover { border-color: #0f86c6 !important; }
+.h13:hover { transform: translateY(-3px) !important; box-shadow: 0 18px 40px rgba(15,47,76,0.25) !important; }
+.h14:hover { background: #ffffff !important; border-color: #ffffff !important; }
+.h15:hover { border-color: #f2f6f9 !important; background: rgba(242,246,249,0.08) !important; }
+.h16:hover { color: #2ba3e0 !important; }
+.h17:hover { color: #ffffff !important; padding-left: 6px !important; }
+.h18:hover { color: #ffffff !important; }
+.h19:hover { transform: translateY(-3px) !important; box-shadow: 0 16px 30px rgba(3,16,30,0.35) !important; }
