@@ -210,6 +210,10 @@ export default class App extends React.Component {
       goCaBouge: () => this.go("ca-bouge"),
       goRejoindre: () => this.go("rejoindre"),
 
+      mobileNav: SECTIONS.map(s => ({ label: s.label, items: s.items.map(i => ({ slug: i[0], title: i[1] })) })),
+      mobileNavValue: page,
+      onMobileNav: e => { e.preventDefault(); this.go(e.target.value); },
+
       isAccueil: page === "accueil",
       isBienvenue: page === "bienvenue",
       isInscriptionAutomne: page === "inscription-automne",
