@@ -1,33 +1,45 @@
 import React from "react";
 import Template from "./Template.jsx";
 
+const SLOGAN = "Bouger · Jouer · Socialiser";
+
 const SECTIONS = [
-  { id: "jouer", label: "Jouer", blurb: "Ligues, horaires, règles de fonctionnement et évaluation du niveau de jeu.", items: [
-    ["ligues", "Nos ligues"], ["dates", "Dates importantes"], ["fonctionnement", "Fonctionnement des ligues"],
-    ["absences", "Gestion des absences"], ["responsables", "Responsables des ligues"],
-    ["circulation", "Circulation sur la piste"], ["competitives", "Ligues compétitives"], ["evaluation", "Évaluation"]
+  { id: "accueil", label: "Accueil", blurb: "Bienvenue, nouveautés, activités à ne pas manquer et comment nous rejoindre.", items: [
+    ["bienvenue", "Bienvenue au Club"], ["ca-bouge", "Ça bouge au Club !!!"], ["activites", "Activités à ne pas manquer"],
+    ["articles-promo", "Articles promotionnels"], ["calendrier", "Calendrier des activités"], ["rejoindre", "Nous rejoindre"]
   ]},
-  { id: "membre", label: "Devenir membre", blurb: "Adhésion annuelle, renouvellement, paiement et matériel requis.", items: [
-    ["adhesion", "Adhésion annuelle"], ["devenir", "Devenir membre"], ["renouveler", "Renouveler votre adhésion"],
-    ["virement", "Virement Interac"], ["tarification", "Tarification et remboursement"], ["materiel", "Matériel"]
+  { id: "jouer", label: "Jouer au Club", blurb: "Inscriptions, open play, remplaçants, absences, terrains, échauffement et sécurité.", items: [
+    ["inscription-automne", "Inscription — Automne"], ["inscription-hiver", "Inscription — Hiver"], ["open-play", "Open Play"],
+    ["remplacant", "Remplaçant — Ligue régulière"], ["remboursement", "Remboursement de ligue"], ["absences", "Signaler une absence"],
+    ["terrains", "Localisation des terrains"], ["echauffement", "Routine d'échauffement"], ["sante", "Santé et sécurité"],
+    ["circulation", "Circulation sur la piste"]
   ]},
-  { id: "apprendre", label: "Apprendre", blurb: "Initiation, règles du jeu, techniques et formateurs privés.", items: [
-    ["initiation", "Initiation"], ["regles", "Règles du jeu"], ["ameliorer", "Comment s'améliorer"],
-    ["services", "Les services et les retours"], ["echauffement", "Routine d'échauffement"],
-    ["formations", "Formations privées"], ["formateurs", "Zone des formateurs"]
+  { id: "membres", label: "Membres", blurb: "Adhésion, tarifs, matériel, règlements, niveaux de jeu et liste d'attente.", items: [
+    ["devenir-membre", "Devenir membre"], ["tarifs", "Tarifs Club & Fédération"], ["materiel", "Matériels nécessaires"],
+    ["raquette", "Choisir la bonne raquette"], ["activites-club", "Activités du Club"], ["reglements", "Règlements du Club"],
+    ["niveaux", "Niveau de jeu (Côtes)"], ["liste-attente", "Liste d'attente"]
   ]},
-  { id: "tournois", label: "Tournois", blurb: "La Classique estivale, règles des tournois et arbitrage.", items: [
-    ["tournois", "Tournois"], ["regles-tournois", "Règles des tournois"], ["arbitrage", "Arbitrage"]
+  { id: "apprendre", label: "Apprendre", blurb: "Règlement de jeu, perfectionnement, formations privées et en groupe, évaluation.", items: [
+    ["regles-jeu", "Règlement de jeu"], ["ameliorer", "Comment s'améliorer"], ["formations-privees", "Formations privées"],
+    ["formations-groupe", "Formations en groupe"], ["evaluation", "Évaluation des membres"]
   ]},
-  { id: "club", label: "Le club", blurb: "Conseil d'administration, historique, santé et sécurité, codes d'éthique.", items: [
-    ["ca", "Conseil d'administration"], ["historique", "Historique"], ["honneurs", "Honneurs"], ["galerie", "Galerie photos"],
-    ["dons", "Nos dons"], ["aga", "AGA"], ["sante", "Santé et sécurité"],
-    ["ethique", "Code d'éthique du club"], ["ethique-fb", "Code d'éthique Facebook"],
-    ["contact", "Communiquez avec nous"], ["suggestions", "Boîte à suggestions"], ["plan", "Plan du site"]
+  { id: "tournoi", label: "Tournoi", blurb: "Dates, règlements, arbitrage, album photos et résultats des tournois.", items: [
+    ["dates-tournois", "Dates des tournois"], ["regles-tournois", "Règlements des tournois"], ["arbitrage", "Arbitrage"],
+    ["album-tournoi", "Album photos"], ["resultats-tournois", "Résultats des tournois"]
+  ]},
+  { id: "club", label: "Le club", blurb: "Qui sommes-nous, mission, conseil d'administration, comités, dons, hommages et photos.", items: [
+    ["qui-sommes", "Qui sommes-nous ?"], ["historique", "Historique"], ["mission", "Notre mission"],
+    ["ca", "Conseil d'administration"], ["comites", "Nos comités"], ["dons", "Nos dons"],
+    ["hommages", "Hommages"], ["suggestions", "Suggestions des membres"], ["galerie", "Photos du Club"]
   ]}
 ];
 
-const DONE = ["accueil", "dates", "ligues", "adhesion", "initiation", "fonctionnement", "tournois", "sante", "ethique", "absences", "tarification", "acces", "galerie"];
+const DONE = ["accueil", "bienvenue", "inscription-automne", "absences", "sante", "devenir-membre", "tarifs", "reglements", "galerie", "dates-tournois", "acces", "ethique", "initiation"];
+
+const EXTRA_TITLES = {
+  accueil: "Accueil", acces: "Accès et inscription", ethique: "Code d'éthique",
+  initiation: "Initiation", contact: "Communiquez avec nous", plan: "Plan du site"
+};
 
 const PHOTOS = [
   { src: "/assets/photo-parc-ste-anne.jpg", tag: "Parc Ste-Anne", caption: "Les terrains du Parc de l'Île Ste-Anne vus du ciel", cols: 2, rows: 2 },
@@ -95,6 +107,7 @@ export default class App extends React.Component {
     return "Accueil";
   }
   titleOf(slug) {
+    if (EXTRA_TITLES[slug]) return EXTRA_TITLES[slug];
     for (const s of SECTIONS) { const f = s.items.find(i => i[0] === slug); if (f) return f[1]; }
     return "Accueil";
   }
@@ -118,6 +131,7 @@ export default class App extends React.Component {
 
     return {
       page,
+      slogan: SLOGAN,
       showBanner: this.props.showBanner ?? true,
       showIntro: (this.props.showIntro ?? true) && this.state.intro,
       bannerText: this.props.bannerText ?? "Les inscriptions aux ligues d'automne 2026 pour les membres sont commencées!",
@@ -149,7 +163,7 @@ export default class App extends React.Component {
 
       hasCrumb: page !== "accueil",
       crumbSection: this.sectionOf(page),
-      crumbTitle: page === "acces" ? "Accès" : this.titleOf(page),
+      crumbTitle: EXTRA_TITLES[page] || this.titleOf(page),
       crumbOpen: () => { const s = SECTIONS.find(x => x.items.some(i => i[0] === page)); this.setState({ menu: s ? s.id : null }); window.scrollTo({ top: 0, behavior: "smooth" }); },
       goHomeBtn: () => this.go("accueil"),
 
@@ -163,10 +177,10 @@ export default class App extends React.Component {
       }))),
       heroCaption: HERO[this.state.slide].caption,
       heroDots: HERO.map((h, i) => ({ n: i + 1, w: i === this.state.slide ? "28px" : "8px", bg: i === this.state.slide ? "#2ba3e0" : "rgba(242,246,249,0.55)", pick: () => { this.setState({ slide: i }); this.startSlides(); } })),
-      goAdhesion: () => this.go("adhesion"),
+      goInscriptionAutomne: () => this.go("inscription-automne"),
       goPlan: () => this.go("plan"),
       goContact: () => this.go("contact"),
-      footerSections: SECTIONS.map(s => ({ label: s.label, items: s.items.slice(0, 6).map(i => ({ title: i[1], open: () => this.go(i[0]) })) })),
+      footerSections: SECTIONS.map(s => ({ label: s.label, items: s.items.slice(0, 8).map(i => ({ title: i[1], open: () => this.go(i[0]) })) })),
       goGalerie: () => this.go("galerie"),
       isGalerie: page === "galerie",
       galleryFilters: FILTERS.map(l => ({ label: l, bg: this.state.filter === l ? "#0f2f4c" : "#ffffff", fg: this.state.filter === l ? "#f2f6f9" : "#0f2f4c", border: this.state.filter === l ? "#0f2f4c" : "#d8e2ea", pick: () => this.setState({ filter: l }) })),
@@ -188,22 +202,22 @@ export default class App extends React.Component {
       portalOpen: !!this.state.portal,
       portalLabel: this.state.portal ? this.state.portal.title : "",
       closePortal: () => this.setState({ portal: null }),
-      goLigues: () => this.go("ligues"),
-      goFonctionnement: () => this.go("fonctionnement"),
-      goRegles: () => this.go("regles"),
-      goFormations: () => this.go("formations"),
+      goReglements: () => this.go("reglements"),
+      goReglesJeu: () => this.go("regles-jeu"),
+      goFormationsPrivees: () => this.go("formations-privees"),
+      goDevenirMembre: () => this.go("devenir-membre"),
 
       isAccueil: page === "accueil",
-      isDates: page === "dates",
-      isLigues: page === "ligues",
-      isAdhesion: page === "adhesion",
+      isBienvenue: page === "bienvenue",
+      isInscriptionAutomne: page === "inscription-automne",
+      isDevenirMembre: page === "devenir-membre",
       isInitiation: page === "initiation",
-      isFonctionnement: page === "fonctionnement",
+      isReglements: page === "reglements",
       isAbsences: page === "absences",
-      isTarification: page === "tarification",
+      isTarifs: page === "tarifs",
       isSante: page === "sante",
       isEthique: page === "ethique",
-      isTournois: page === "tournois",
+      isDatesTournois: page === "dates-tournois",
       isPending: !DONE.includes(page),
       pendingTitle: this.titleOf(page),
       pendingSection: this.sectionOf(page)
