@@ -178,7 +178,7 @@ export default class App extends React.Component {
       goInscriptionAutomne: () => this.go("inscription-automne"),
       goPlan: () => this.go("plan"),
       goContact: () => this.go("contact"),
-      footerSections: SECTIONS.map(s => ({ label: s.label, items: s.items.slice(0, 8).map(i => ({ title: i[1], open: () => this.go(i[0]) })) })),
+      footerSections: SECTIONS.map(s => ({ label: s.label, items: s.items.slice(0, 4).map(i => ({ title: i[1], open: () => this.go(i[0]) })) })),
       goGalerie: () => this.go("galerie"),
       isGalerie: page === "galerie",
       galleryFilters: FILTERS.map(l => ({ label: l, bg: this.state.filter === l ? "#0f2f4c" : "#ffffff", fg: this.state.filter === l ? "#f2f6f9" : "#0f2f4c", border: this.state.filter === l ? "#0f2f4c" : "#d8e2ea", pick: () => this.setState({ filter: l }) })),
