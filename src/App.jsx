@@ -43,9 +43,6 @@ const EXTRA_TITLES = {
 
 const PHOTOS = [
   { src: "/assets/photo-parc-ste-anne.jpg", tag: "Parc Ste-Anne", caption: "Les terrains du Parc de l'Île Ste-Anne vus du ciel", cols: 2, rows: 2 },
-  { src: "/assets/pickle_cmt.jpg", tag: "Ligues", caption: "Pickleball au Centre Mario-Tremblay", cols: 1, rows: 2 },
-  { src: "/assets/saint_anne.png", tag: "Parc Ste-Anne", caption: "Terrains extérieurs du Parc Ste-Anne", cols: 1, rows: 1 },
-  { src: "/assets/ecole.jpeg", tag: "Ligues", caption: "Gymnase de l'École Albert-Naud", cols: 2, rows: 1 },
   { src: "/assets/photo-double-hommes.jpg", tag: "Tournois", caption: "Volée au filet, Classique estivale", cols: 1, rows: 2 },
   { src: "/assets/photo-ligue-cmt.jpg", tag: "Ligues", caption: "Soirée de ligue au Centre Mario-Tremblay", cols: 1, rows: 1 },
   { src: "/assets/photo-double-femmes.jpg", tag: "Tournois", caption: "Double féminin, Classique estivale", cols: 2, rows: 1 },
@@ -56,10 +53,7 @@ const PHOTOS = [
 ];
 const HERO = [
   { src: "/assets/photo-parc-ste-anne.jpg", pos: "55% 45%", caption: "Parc de l'Île Ste-Anne · Alma" },
-  { src: "/assets/pickle_cmt.jpg", pos: "50% 50%", caption: "Ligues · Centre Mario-Tremblay" },
-  { src: "/assets/saint_anne.png", pos: "50% 50%", caption: "Terrains extérieurs · Parc Ste-Anne" },
   { src: "/assets/photo-double-hommes.jpg", pos: "60% 40%", caption: "La Classique estivale" },
-  { src: "/assets/ecole.jpeg", pos: "50% 50%", caption: "Gymnase · École Albert-Naud" },
   { src: "/assets/photo-formation-cmt.jpg", pos: "50% 40%", caption: "Formation · Centre Mario-Tremblay" }
 ];
 const FILTERS = ["Tout", "Ligues", "Tournois", "Formations", "Parc Ste-Anne"];
