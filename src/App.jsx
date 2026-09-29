@@ -70,7 +70,7 @@ const PORTALS = [
 ];
 
 export default class App extends React.Component {
-  state = { page: "accueil", query: "", portal: null, menu: null, searchOpen: false, searchFocus: false, lightbox: null, filter: "Tout", slide: 0, intro: true };
+  state = { page: "accueil", query: "", portal: null, menu: null, searchOpen: false, searchFocus: false, lightbox: null, filter: "Tout", slide: 0, intro: true, drawerOpen: false, drawerSection: null };
 
   componentDidMount() {
     this.sync = () => {
@@ -79,7 +79,7 @@ export default class App extends React.Component {
     };
     this.sync();
     window.addEventListener("hashchange", this.sync);
-    this.onKey = e => { if (e.key === "Escape") this.setState({ menu: null, searchOpen: false, lightbox: null }); };
+    this.onKey = e => { if (e.key === "Escape") this.setState({ menu: null, searchOpen: false, lightbox: null, drawerOpen: false }); };
     this.searchRef = React.createRef();
     this.startSlides();
     this.introTimer = setTimeout(() => this.setState({ intro: false }), 3500);
@@ -95,10 +95,13 @@ export default class App extends React.Component {
   componentWillUnmount() { clearInterval(this.slideTimer); clearTimeout(this.introTimer); window.removeEventListener("hashchange", this.sync); window.removeEventListener("keydown", this.onKey); }
 
   go(slug) {
-    this.setState({ page: slug, query: "", portal: null, menu: null, searchOpen: false });
+    this.setState({ page: slug, query: "", portal: null, menu: null, searchOpen: false, drawerOpen: false, drawerSection: null });
     if (location.hash !== "#" + slug) location.hash = slug;
     if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
   }
+
+  toggleDrawer() { this.setState(s => ({ drawerOpen: !s.drawerOpen, drawerSection: s.drawerOpen ? null : s.drawerSection })); }
+  toggleDrawerSection(id) { this.setState(s => ({ drawerSection: s.drawerSection === id ? null : id })); }
 
   sectionOf(slug) {
     for (const s of SECTIONS) if (s.items.some(i => i[0] === slug)) return s.label;
@@ -210,9 +213,21 @@ export default class App extends React.Component {
       goCaBouge: () => this.go("ca-bouge"),
       goRejoindre: () => this.go("rejoindre"),
 
-      mobileNav: SECTIONS.map(s => ({ label: s.label, items: s.items.map(i => ({ slug: i[0], title: i[1] })) })),
-      mobileNavValue: page,
-      onMobileNav: e => { e.preventDefault(); this.go(e.target.value); },
+      drawerOpen: this.state.drawerOpen,
+      drawerSections: SECTIONS.map(s => ({
+        id: s.id, label: s.label,
+        expanded: this.state.drawerSection === s.id,
+        chev: this.state.drawerSection === s.id ? "rotate(-135deg) translate(-2px, -2px)" : "rotate(45deg)",
+        toggle: () => this.toggleDrawerSection(s.id),
+        items: s.items.map(i => ({
+          slug: i[0], title: i[1],
+          active: page === i[0],
+          open: () => this.go(i[0])
+        }))
+      })),
+      toggleDrawer: () => this.toggleDrawer(),
+      goHomeMobile: () => this.go("accueil"),
+      goAccesMobile: () => this.go("acces"),
 
       isAccueil: page === "accueil",
       isBienvenue: page === "bienvenue",
