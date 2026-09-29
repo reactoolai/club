@@ -210,6 +210,11 @@ export default class App extends React.Component {
       goReglesJeu: () => this.go("regles-jeu"),
       goFormationsPrivees: () => this.go("formations-privees"),
       goDevenirMembre: () => this.go("devenir-membre"),
+      goInscriptionAutomne2: () => this.go("inscription-automne"),
+      goTarifs: () => this.go("tarifs"),
+      goActivites: () => this.go("activites"),
+      goCaBouge: () => this.go("ca-bouge"),
+      goRejoindre: () => this.go("rejoindre"),
 
       isAccueil: page === "accueil",
       isBienvenue: page === "bienvenue",
