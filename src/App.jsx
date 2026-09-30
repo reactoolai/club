@@ -1,5 +1,11 @@
 import React from "react";
 import Template from "./Template.jsx";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+);
 
 const SLOGAN = "Bouger · Jouer · Socialiser";
 
@@ -70,7 +76,7 @@ const PORTALS = [
 ];
 
 export default class App extends React.Component {
-  state = { page: "accueil", query: "", portal: null, menu: null, searchOpen: false, searchFocus: false, lightbox: null, filter: "Tout", slide: 0, intro: true, drawerOpen: false, drawerSection: null };
+  state = { page: "accueil", query: "", portal: null, menu: null, searchOpen: false, searchFocus: false, lightbox: null, filter: "Tout", slide: 0, intro: true, drawerOpen: false, drawerSection: null, events: [], eventsError: false };
 
   componentDidMount() {
     this.sync = () => {
@@ -82,12 +88,22 @@ export default class App extends React.Component {
     this.onKey = e => { if (e.key === "Escape") this.setState({ menu: null, searchOpen: false, lightbox: null, drawerOpen: false }); };
     this.searchRef = React.createRef();
     this.startSlides();
+    this.loadEvents();
     this.introTimer = setTimeout(() => this.setState({ intro: false }), 3500);
     window.addEventListener("keydown", this.onKey);
   }
   startSlides() {
     clearInterval(this.slideTimer);
     this.slideTimer = setInterval(() => { if (this.state.page === "accueil") this.setState(s => ({ slide: (s.slide + 1) % HERO.length })); }, 6000);
+  }
+  async loadEvents() {
+    const { data, error } = await supabase
+      .from("events")
+      .select("id, title, description, event_date, end_date, location, category, image_url")
+      .eq("is_published", true)
+      .order("event_date", { ascending: true });
+    if (error) { this.setState({ eventsError: true }); return; }
+    this.setState({ events: data || [] });
   }
   componentDidUpdate(_, prev) {
     if (this.state.searchOpen && !prev.searchOpen && this.searchRef && this.searchRef.current) this.searchRef.current.focus();
@@ -228,6 +244,19 @@ export default class App extends React.Component {
       toggleDrawer: () => this.toggleDrawer(),
       goHomeMobile: () => this.go("accueil"),
       goAccesMobile: () => this.go("acces"),
+
+      events: this.state.events.map(ev => ({
+        id: ev.id,
+        title: ev.title,
+        description: ev.description,
+        date: ev.event_date,
+        end: ev.end_date,
+        location: ev.location,
+        category: ev.category,
+        image: ev.image_url
+      })),
+      eventsError: this.state.eventsError,
+      goCaBougeEvents: () => this.go("ca-bouge"),
 
       isAccueil: page === "accueil",
       isBienvenue: page === "bienvenue",
